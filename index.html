@@ -42,8 +42,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Cursor-Following Spotlight & Ambient Background Glow -->
-  <div id="cursor-glow" aria-hidden="true"></div>
+  <!-- Ambient Background Glow -->
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 
@@ -55,7 +54,6 @@
       <li><a href="#projects">Builds</a></li>
       <li><a href="#experience">Quests</a></li>
       <li><a href="#sidequests">AFK</a></li>
-      <li><a href="poems.html">Poems</a></li>
     </ul>
     <a href="https://github.com/MRSOUL01" target="_blank" class="btn-glow">GitHub ↗</a>
   </nav>
@@ -214,26 +212,5 @@
       <a href="https://leetcode.com" target="_blank">LeetCode</a>
     </div>
   </footer>
-
-  <script>
-    // Cursor-Following Ambient Spotlight + Per-Card Glow
-    const cursorGlow = document.getElementById("cursor-glow");
-    const cards = document.querySelectorAll(".bento-card");
-
-    document.addEventListener("mousemove", (e) => {
-      cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      cursorGlow.style.opacity = "1";
-
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-      });
-    });
-
-    document.addEventListener("mouseleave", () => {
-      cursorGlow.style.opacity = "0";
-    });
-  </script>
 </body>
 </html>
