@@ -3,217 +3,767 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ummer Ahmed Shaik | MRSOUL01</title>
+  <title>Poems & Reflections | Ummer Ahmed Shaik</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-serif: 'Instrument Serif', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      transition: background-color 0.75s ease, color 0.6s ease;
+    }
+
+    /* Scene Themes */
+    body.theme-home {
+      --bg: #faf9f6;
+      --text: #18181b;
+      --muted: #52525b;
+      --accent: #b91c1c;
+      --pill-bg: rgba(255, 255, 255, 0.84);
+      --pill-border: rgba(24, 24, 27, 0.14);
+      --nav-bg: rgba(255, 255, 255, 0.86);
+    }
+
+    /* Poem 1: Screams and Whispers */
+    body.theme-screams {
+      --bg: #0f0b0e;
+      --text: #f5f5f4;
+      --muted: #a8a29e;
+      --accent: #fb923c;
+      --pill-bg: rgba(28, 20, 23, 0.76);
+      --pill-border: rgba(251, 146, 60, 0.28);
+      --nav-bg: rgba(15, 11, 14, 0.84);
+    }
+
+    /* Poem 2: The Act of Act */
+    body.theme-act {
+      --bg: #12101c;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --accent: #f472b6;
+      --pill-bg: rgba(26, 22, 41, 0.76);
+      --pill-border: rgba(244, 114, 182, 0.28);
+      --nav-bg: rgba(18, 16, 28, 0.84);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* Full-Viewport Drawn Scene Canvas */
+    #scene-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating Navbar */
+    .navbar {
+      position: sticky;
+      top: 18px;
+      z-index: 20;
+      max-width: 1180px;
+      margin: 18px auto 0;
+      padding: 12px 22px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--pill-border);
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.6s ease, border-color 0.6s ease;
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo .dot {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.current {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .btn-back {
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #ffffff;
+      transition: transform 0.2s ease, background 0.5s ease;
+    }
+
+    body.theme-screams .btn-back,
+    body.theme-act .btn-back {
+      color: #09090b;
+    }
+
+    .btn-back:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Asymmetric Split Layout: Left = Controls + Poem, Right = Hand-Drawn Looping Scene */
+    .split-container {
+      position: relative;
+      z-index: 5;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 36px 28px 90px;
+      display: grid;
+      grid-template-columns: minmax(320px, 530px) 1fr;
+      min-height: calc(100vh - 90px);
+      align-items: start;
+    }
+
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .archive-tag {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    /* Poem Home Button Directly Below VERSE_ARCHIVE */
+    .poem-home-btn {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 7px 15px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      color: var(--text);
+      border: 1px solid var(--pill-border);
+      cursor: pointer;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+    }
+
+    .poem-home-btn:hover,
+    .poem-home-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    body.theme-screams .poem-home-btn.active,
+    body.theme-act .poem-home-btn.active {
+      color: #09090b;
+    }
+
+    /* Poem Selector Buttons */
+    .poem-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .poem-btn {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      color: var(--muted);
+      border: 1px solid var(--pill-border);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .poem-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .poem-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+      border-color: transparent;
+    }
+
+    body.theme-screams .poem-btn.active,
+    body.theme-act .poem-btn.active {
+      color: #09090b;
+    }
+
+    /* Left-Aligned Poem Reader */
+    .poem-reader {
+      width: 100%;
+      padding: 4px 2px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .poem-reader.fade {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .poem-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4.5vw, 3.45rem);
+      font-weight: 400;
+      line-height: 1.12;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .poem-meta {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .poem-verses {
+      font-family: var(--font-serif);
+      font-size: clamp(1.26rem, 2vw, 1.52rem);
+      line-height: 1.78;
+      color: var(--text);
+      white-space: pre-line;
+    }
+
+    .hint-note {
+      margin-top: 28px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--muted);
+      opacity: 0.85;
+    }
+
+    @media (max-width: 860px) {
+      .split-container {
+        grid-template-columns: 1fr;
+        padding-bottom: 280px;
+      }
+      .navbar {
+        margin: 12px 14px 0;
+        padding: 10px 14px;
+      }
+      .nav-links {
+        gap: 12px;
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="theme-home">
 
-  <!-- Cursor-Following Spotlight & Falling Particle Canvas -->
-  <div id="cursor-glow" aria-hidden="true"></div>
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <!-- Hand-Drawn Looping Scene Canvas -->
+  <canvas id="scene-canvas" aria-hidden="true"></canvas>
 
-  <!-- Floating Navbar -->
+  <!-- Navbar -->
   <nav class="navbar">
-    <div class="logo">MRSOUL01<span class="dot">.dev</span></div>
+    <a href="index.html" class="logo">MRSOUL01<span class="dot">.dev</span></a>
     <ul class="nav-links">
-      <li><a href="#about">Lore</a></li>
-      <li><a href="#projects">Builds</a></li>
-      <li><a href="#experience">Quests</a></li>
-      <li><a href="#sidequests">AFK</a></li>
-      <li><a href="poems.html">Poems</a></li>
+      <li><a href="index.html#about">Lore</a></li>
+      <li><a href="index.html#projects">Builds</a></li>
+      <li><a href="index.html#sidequests">AFK</a></li>
+      <li><a href="poems.html" class="current">Poems</a></li>
     </ul>
-    <a href="https://github.com/MRSOUL01" target="_blank" rel="noopener" class="btn-glow">GitHub ↗</a>
+    <a href="index.html" class="btn-back">← Portfolio</a>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="status-pill">
-      <span class="pulse"></span> Currently compiling in Bengaluru // From Kuwait
-    </div>
-    <h1>UMMER AHMED SHAIK</h1>
-    <p class="subtitle">
-      BCA Cloud &amp; Security Undergrad • Competitive Debater • Speedcuber • Builder of digital systems &amp; philosophical rabbit holes.
-    </p>
-  </header>
+  <!-- Left Content + Right Drawn Loop Scene -->
+  <main class="split-container">
+    <section class="left-column">
+      <span class="archive-tag">// 06. VERSE_ARCHIVE</span>
 
-  <!-- Bento Grid -->
-  <main class="bento-grid">
+      <!-- Poem Home Button Directly Below VERSE_ARCHIVE -->
+      <button type="button" id="poem-home-btn" class="poem-home-btn active">⌂ Poem Home</button>
 
-    <!-- 01. Lore / About -->
-    <section id="about" class="bento-card span-2">
-      <span class="tag">// 01. LORE</span>
-      <h2>Cloud Architecture, Logic &amp; Meaning-Making</h2>
-      <p>
-        Pursuing a Bachelor of Computer Applications specializing in Cloud Technology &amp; Information Security at JAIN (Deemed-to-be) University, Bengaluru, after completing secondary education at Gulf Indian School in Kuwait.
-      </p>
-      <p style="margin-top: 12px;">
-        Outside of C programming, linear algebra, and digital logic circuits, I explore Aristotelian <em>Eudaimonia</em>, draft policy resolutions on AI governance, and fine-tune smart cubes.
-      </p>
-      <div class="chip-row">
-        <span class="chip">Cloud &amp; InfoSec</span>
-        <span class="chip">C / Python / JS</span>
-        <span class="chip">Digital Logic</span>
-        <span class="chip">Linear Algebra</span>
-        <span class="chip">Git &amp; Linux</span>
+      <!-- Poem Buttons (Double-click any button to return to Poem Home) -->
+      <div class="poem-buttons" id="poem-buttons">
+        <button type="button" class="poem-btn" data-key="screams">I. Screams and Whispers</button>
+        <button type="button" class="poem-btn" data-key="act">II. The Act of Act</button>
       </div>
-    </section>
 
-    <!-- 02. Telemetry / Quick Stats -->
-    <section class="bento-card">
-      <span class="tag">// 02. TELEMETRY</span>
-      <div class="stat-block">
-        <div class="stat">
-          <span class="stat-num">BCA</span>
-          <span class="stat-label">Cloud &amp; Security</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">MUN</span>
-          <span class="stat-label">UNGA-DISEC Delegate</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">GAN i4</span>
-          <span class="stat-label">Smart Cube Tuned</span>
-        </div>
-      </div>
+      <!-- Left-Aligned Poem Typography -->
+      <article class="poem-reader" id="poem-reader">
+        <h1 class="poem-title" id="poem-title">Beneath the Crimson Momiji</h1>
+        <span class="poem-meta" id="poem-meta">Poem Home • Japanese Red Maple Sanctuary</span>
+        <div class="poem-verses" id="poem-verses">A quiet branch leans from the corner stone,
+Red leaves unhurried in the morning air;
+Choose any verse to step into its world,
+Or linger in the stillness waiting here.</div>
+        <p class="hint-note">// Tip: Double-press any poem button to return to Poem Home.</p>
+      </article>
     </section>
-
-    <!-- 03. Builds / Projects -->
-    <section id="projects" class="bento-card span-2">
-      <span class="tag">// 03. BUILDS</span>
-      <h2>Selected Repositories &amp; Lab Systems</h2>
-      <div class="project-list">
-        <a href="https://github.com/MRSOUL01/hotel-management" target="_blank" rel="noopener" class="project-item">
-          <div>
-            <h3>hotel-management</h3>
-            <p>End-to-end reservation, room allocation, and billing system engineered for structured data workflows.</p>
-          </div>
-          <span class="arrow">↗</span>
-        </a>
-        <a href="https://github.com/MRSOUL01/GAME" target="_blank" rel="noopener" class="project-item">
-          <div>
-            <h3>GAME // Interactive Sandbox</h3>
-            <p>Browser-based logic &amp; interactive mechanics developed and tested via GitHub Codespaces.</p>
-          </div>
-          <span class="arrow">↗</span>
-        </a>
-        <div class="project-item">
-          <div>
-            <h3>Digital Logic &amp; Combinational Circuits</h3>
-            <p>Simulated 4:1 MUX, 1:4 DEMUX, Full Adders &amp; Subtractors with Boolean algebra verification.</p>
-          </div>
-          <span class="arrow">⌘</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04. Quests / Experience & MUN -->
-    <section id="experience" class="bento-card">
-      <span class="tag">// 04. QUESTS</span>
-      <h2>Leadership &amp; Arena</h2>
-      <ul class="quest-list">
-        <li>
-          <strong>PoliNexus Debate &amp; Politics Club</strong>
-          <span>Cultural Head Associate Campaign • Jain University</span>
-        </li>
-        <li>
-          <strong>UNGA-DISEC Delegate (Indonesia)</strong>
-          <span>Regulating Military AI &amp; Lethal Autonomous Weapons</span>
-        </li>
-        <li>
-          <strong>Tech Support Intern • GAO Tek Inc.</strong>
-          <span>Virtual Operations &amp; Daily Squad Reporting</span>
-        </li>
-      </ul>
-    </section>
-
-    <!-- 05. AFK / Sidequests -->
-    <section id="sidequests" class="bento-card span-3">
-      <span class="tag">// 05. AFK_MODE</span>
-      <h2>Offline Protocols</h2>
-      <div class="afk-grid">
-        <div class="afk-item">
-          <strong>Speedcubing</strong>
-          <span>Customizing magnet tension &amp; axis distance on a GAN i Carry 4.</span>
-        </div>
-        <div class="afk-item">
-          <strong>Court &amp; Rally</strong>
-          <span>Badminton footwork drills and pickup basketball runs.</span>
-        </div>
-        <div class="afk-item">
-          <strong>Poetry &amp; Philosophy</strong>
-          <span>Writing original verse and exploring stillness &amp; human purpose.</span>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>Engineered by <strong>Ummer Ahmed Shaik</strong> • Built with HTML, CSS &amp; Vanilla JS</p>
-  </footer>
-
   <script>
-    // 1. Cursor-Following Ambient Spotlight + Per-Card Radial Glow
-    const cursorGlow = document.getElementById("cursor-glow");
-    const cards = document.querySelectorAll(".bento-card");
+    const poemData = {
+      home: {
+        theme: "theme-home",
+        scene: "maple",
+        title: "Beneath the Crimson Momiji",
+        meta: "Poem Home • Japanese Red Maple Sanctuary",
+        verses: `A quiet branch leans from the corner stone,
+Red leaves unhurried in the morning air;
+Choose any verse to step into its world,
+Or linger in the stillness waiting here.`
+      },
+      screams: {
+        theme: "theme-screams",
+        scene: "emberRunner",
+        title: "Screams and Whispers",
+        meta: "Ummer Ahmed Shaik • Silent Ember & Light Ahead",
+        verses: `I am not deaf nor,
+I am ignoring your voice,
+I hear the same screams more than our sins
+But
+the whispers of your voice
+Were lost in the weights of distance.
 
-    document.addEventListener("mousemove", (e) => {
-      cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      cursorGlow.style.opacity = "1";
+More i run, the screams gets louder
+And
+the whispers fade before I could know.
+The screams was chamber of guilt ,
+In the dark running was only hope.
+But the whispers from out were
+hope for redemption.
 
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+Looking at the
+The silent ember in the behind,
+I ran front for light .
+With every step screams became louder
+And light became brighter.
+
+I Felt stillness not from light but
+I heard screams beyond inside.
+
+Hope for redemption.`
+      },
+      act: {
+        theme: "theme-act",
+        scene: "stageRain",
+        title: "The Act of Act",
+        meta: "Ummer Ahmed Shaik • Rhythm of Rain & Two Breaths",
+        verses: `All stories starts with same
+Gaze meeting gaze
+And it starts with a smile
+Not just carved on lips,
+But from the heart.
+
+"You see me?" I asked
+And the continues with talking,
+Not just with words.
+It went on like rain finding it rhythm.
+It was Like as if
+The heart finally found its voice.
+
+But the heart...know
+Know the rhythm of endings
+Will this also end with that
+Wave and words.
+Is it the end
+Light off
+camera off
+feeling fading
+
+But this time
+I want to hold it,
+Not just for the act
+But for me
+Like hold that moment
+like a prayer between two breaths.`
+      }
+    };
+
+    let currentScene = "maple";
+    const reader = document.getElementById("poem-reader");
+    const titleEl = document.getElementById("poem-title");
+    const metaEl = document.getElementById("poem-meta");
+    const versesEl = document.getElementById("poem-verses");
+    const homeBtn = document.getElementById("poem-home-btn");
+    const poemBtns = document.querySelectorAll(".poem-btn");
+
+    function switchView(key) {
+      const item = poemData[key];
+      if (!item) return;
+
+      document.body.className = item.theme;
+      currentScene = item.scene;
+
+      homeBtn.classList.toggle("active", key === "home");
+      poemBtns.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.key === key);
+      });
+
+      reader.classList.add("fade");
+      setTimeout(() => {
+        titleEl.textContent = item.title;
+        metaEl.textContent = item.meta;
+        versesEl.textContent = item.verses;
+        reader.classList.remove("fade");
+      }, 220);
+    }
+
+    homeBtn.addEventListener("click", () => switchView("home"));
+
+    poemBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        switchView(btn.dataset.key);
+      });
+
+      btn.addEventListener("dblclick", (e) => {
+        e.preventDefault();
+        switchView("home");
       });
     });
 
-    document.addEventListener("mouseleave", () => {
-      cursorGlow.style.opacity = "0";
-    });
-
-    // 2. Subtle Falling Cyber-Ember Canvas
-    const canvas = document.getElementById("bg-canvas");
+    /* ============================================================
+       HAND-DRAWN LOOPING SCENES ON HTML5 CANVAS
+       ============================================================ */
+    const canvas = document.getElementById("scene-canvas");
     const ctx = canvas.getContext("2d");
-    let particles = [];
+    let W = 0, H = 0, t = 0;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
     }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+    window.addEventListener("resize", resize);
+    resize();
 
-    for (let i = 0; i < 45; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.8 + 0.6,
-        vy: Math.random() * 0.45 + 0.15,
-        color: i % 3 === 0 ? "rgba(190, 242, 100, 0.35)" : i % 2 === 0 ? "rgba(34, 211, 238, 0.28)" : "rgba(168, 85, 247, 0.3)"
-      });
+    const mapleLeaves = Array.from({ length: 24 }, () => ({
+      x: Math.random() * 1400,
+      y: Math.random() * 900,
+      size: 6 + Math.random() * 6,
+      vx: 0.4 + Math.random() * 0.7,
+      vy: 0.35 + Math.random() * 0.55,
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.03,
+      hue: Math.random() > 0.35 ? "#b91c1c" : "#dc2626"
+    }));
+
+    const raindrops = Array.from({ length: 65 }, () => ({
+      x: Math.random() * 1400,
+      y: Math.random() * 900,
+      len: 14 + Math.random() * 18,
+      speed: 6 + Math.random() * 4
+    }));
+
+    function drawMapleLeaf(x, y, size, angle, color) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const a = (i - 2) * 0.58 - Math.PI / 2;
+        const tipX = Math.cos(a) * size * 1.45;
+        const tipY = Math.sin(a) * size * 1.45;
+        const midA = a + 0.29;
+        const innerX = Math.cos(midA) * size * 0.45;
+        const innerY = Math.sin(midA) * size * 0.45;
+        if (i === 0) ctx.moveTo(tipX, tipY);
+        else ctx.lineTo(tipX, tipY);
+        if (i < 4) ctx.lineTo(innerX, innerY);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
     }
 
-    function animateBg() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.y += p.vy;
-        if (p.y > canvas.height) {
-          p.y = -5;
-          p.x = Math.random() * canvas.width;
+    function drawJapaneseMapleScene() {
+      const sway = Math.sin(t * 0.022) * 14;
+
+      ctx.save();
+      ctx.fillStyle = "rgba(185, 28, 28, 0.06)";
+      ctx.beginPath();
+      ctx.arc(W * 0.74, H * 0.36, Math.min(W, H) * 0.23, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.save();
+      ctx.strokeStyle = "#29201c";
+      ctx.lineCap = "round";
+
+      ctx.lineWidth = 22;
+      ctx.beginPath();
+      ctx.moveTo(-15, H + 15);
+      ctx.bezierCurveTo(W * 0.08, H * 0.78, W * 0.18, H * 0.58, W * 0.34 + sway * 0.4, H * 0.46);
+      ctx.stroke();
+
+      ctx.lineWidth = 12;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.22 + sway * 0.2, H * 0.56);
+      ctx.quadraticCurveTo(W * 0.42, H * 0.36, W * 0.64 + sway, H * 0.32);
+      ctx.stroke();
+
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.30 + sway * 0.3, H * 0.48);
+      ctx.quadraticCurveTo(W * 0.52, H * 0.48, W * 0.72 + sway * 1.1, H * 0.44);
+      ctx.stroke();
+
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.34 + sway * 0.4, H * 0.46);
+      ctx.quadraticCurveTo(W * 0.46, H * 0.24, W * 0.56 + sway * 0.9, H * 0.18);
+      ctx.stroke();
+      ctx.restore();
+
+      const clusters = [
+        { cx: W * 0.56 + sway * 0.9, cy: H * 0.19, rx: 95, ry: 36, c: "rgba(153, 27, 27, 0.88)" },
+        { cx: W * 0.64 + sway,       cy: H * 0.31, rx: 125, ry: 44, c: "rgba(185, 28, 28, 0.92)" },
+        { cx: W * 0.46 + sway * 0.7, cy: H * 0.35, rx: 90, ry: 34, c: "rgba(220, 38, 38, 0.84)" },
+        { cx: W * 0.73 + sway * 1.1, cy: H * 0.43, rx: 110, ry: 38, c: "rgba(153, 27, 27, 0.90)" },
+        { cx: W * 0.55 + sway * 0.8, cy: H * 0.47, rx: 85, ry: 30, c: "rgba(239, 68, 68, 0.78)" }
+      ];
+
+      clusters.forEach((cl, idx) => {
+        ctx.save();
+        for (let i = 0; i < 16; i++) {
+          const a = (i / 16) * Math.PI * 2;
+          const ox = Math.cos(a) * cl.rx * (0.55 + ((i * 7 + idx) % 5) * 0.1);
+          const oy = Math.sin(a) * cl.ry * (0.55 + ((i * 3) % 4) * 0.12);
+          drawMapleLeaf(cl.cx + ox, cl.cy + oy, 9, a + Math.sin(t * 0.03 + i) * 0.2, cl.c);
         }
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
+        ctx.restore();
       });
-      requestAnimationFrame(animateBg);
+
+      mapleLeaves.forEach((leaf) => {
+        leaf.x += leaf.vx + Math.sin(t * 0.02 + leaf.y * 0.01) * 0.4;
+        leaf.y += leaf.vy;
+        leaf.angle += leaf.spin;
+        if (leaf.y > H + 20 || leaf.x > W + 20) {
+          leaf.x = W * (0.35 + Math.random() * 0.45);
+          leaf.y = H * (0.15 + Math.random() * 0.25);
+        }
+        drawMapleLeaf(leaf.x, leaf.y, leaf.size, leaf.angle, leaf.hue);
+      });
     }
-    animateBg();
+
+    function drawEmberRunnerScene() {
+      const startX = W * 0.50;
+      const groundY = H * 0.74;
+      const emberX = startX + 55;
+      const lightX = W * 0.88;
+      const runnerX = startX + 185;
+
+      ctx.strokeStyle = "rgba(251, 146, 60, 0.22)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(startX, groundY);
+      ctx.lineTo(W - 24, groundY);
+      ctx.stroke();
+
+      const emberPulse = 0.7 + Math.sin(t * 0.06) * 0.3;
+      const emberGrad = ctx.createRadialGradient(emberX, groundY - 8, 2, emberX, groundY - 8, 46);
+      emberGrad.addColorStop(0, `rgba(249, 115, 22, ${0.85 * emberPulse})`);
+      emberGrad.addColorStop(1, "rgba(249, 115, 22, 0)");
+      ctx.fillStyle = emberGrad;
+      ctx.beginPath();
+      ctx.arc(emberX, groundY - 8, 46, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#fdba74";
+      ctx.beginPath();
+      ctx.arc(emberX, groundY - 8, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      const lightRadius = 155 + Math.sin(t * 0.03) * 14;
+      const lightGrad = ctx.createRadialGradient(lightX, groundY - 85, 8, lightX, groundY - 85, lightRadius);
+      lightGrad.addColorStop(0, "rgba(254, 243, 199, 0.85)");
+      lightGrad.addColorStop(0.45, "rgba(251, 146, 60, 0.22)");
+      lightGrad.addColorStop(1, "rgba(251, 146, 60, 0)");
+      ctx.fillStyle = lightGrad;
+      ctx.beginPath();
+      ctx.arc(lightX, groundY - 85, lightRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      for (let i = 0; i < 4; i++) {
+        const prog = ((t * 0.012 + i * 0.25) % 1);
+        const r = 18 + prog * 115;
+        ctx.strokeStyle = `rgba(251, 146, 60, ${(1 - prog) * 0.35})`;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(runnerX, groundY - 46, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      const stride = Math.sin(t * 0.14);
+      const bob = Math.abs(Math.cos(t * 0.14)) * 5;
+      const headY = groundY - 74 + bob;
+
+      ctx.save();
+      ctx.strokeStyle = "#f5f5f4";
+      ctx.fillStyle = "#f5f5f4";
+      ctx.lineWidth = 3.2;
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.arc(runnerX + 6, headY, 7.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(runnerX + 4, headY + 9);
+      ctx.lineTo(runnerX - 4, groundY - 36 + bob);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(runnerX + 2, headY + 16);
+      ctx.lineTo(runnerX + 16 + stride * 10, headY + 28);
+      ctx.moveTo(runnerX + 2, headY + 16);
+      ctx.lineTo(runnerX - 16 - stride * 10, headY + 26);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(runnerX - 4, groundY - 36 + bob);
+      ctx.lineTo(runnerX + 14 + stride * 16, groundY - 16);
+      ctx.lineTo(runnerX + 8 + stride * 20, groundY);
+      ctx.moveTo(runnerX - 4, groundY - 36 + bob);
+      ctx.lineTo(runnerX - 14 - stride * 16, groundY - 16);
+      ctx.lineTo(runnerX - 22 - stride * 18, groundY);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawStageRainScene() {
+      const centerX = W * 0.72;
+      const stageY = H * 0.78;
+
+      const spotPulse = 0.85 + Math.sin(t * 0.025) * 0.15;
+      const spotGrad = ctx.createLinearGradient(centerX, H * 0.08, centerX, stageY);
+      spotGrad.addColorStop(0, `rgba(244, 114, 182, ${0.26 * spotPulse})`);
+      spotGrad.addColorStop(1, "rgba(244, 114, 182, 0.02)");
+      ctx.fillStyle = spotGrad;
+      ctx.beginPath();
+      ctx.moveTo(centerX - 18, H * 0.08);
+      ctx.lineTo(centerX + 18, H * 0.08);
+      ctx.lineTo(centerX + 170, stageY);
+      ctx.lineTo(centerX - 170, stageY);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(244, 114, 182, 0.32)";
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.ellipse(centerX, stageY, 175, 22, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      const drawPerson = (px, facingRight) => {
+        const dir = facingRight ? 1 : -1;
+        ctx.save();
+        ctx.fillStyle = "#e4e4e7";
+        ctx.strokeStyle = "#e4e4e7";
+        ctx.lineWidth = 3;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.arc(px, stageY - 82, 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(px - 10, stageY - 70);
+        ctx.lineTo(px + 10, stageY - 70);
+        ctx.lineTo(px + 13, stageY - 28);
+        ctx.lineTo(px - 13, stageY - 28);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(px - 5, stageY - 28);
+        ctx.lineTo(px - 6, stageY);
+        ctx.moveTo(px + 5, stageY - 28);
+        ctx.lineTo(px + 6 + dir * 2, stageY);
+        ctx.stroke();
+        ctx.restore();
+      };
+
+      drawPerson(centerX - 52, true);
+      drawPerson(centerX + 52, false);
+
+      const breath = Math.sin(t * 0.035);
+      const orbR = 10 + breath * 4;
+      const orbGrad = ctx.createRadialGradient(centerX, stageY - 56, 1, centerX, stageY - 56, orbR * 3);
+      orbGrad.addColorStop(0, "rgba(251, 207, 232, 0.95)");
+      orbGrad.addColorStop(0.5, "rgba(244, 114, 182, 0.35)");
+      orbGrad.addColorStop(1, "rgba(244, 114, 182, 0)");
+      ctx.fillStyle = orbGrad;
+      ctx.beginPath();
+      ctx.arc(centerX, stageY - 56, orbR * 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(244, 114, 182, 0.30)";
+      ctx.lineWidth = 1.2;
+      raindrops.forEach((r) => {
+        r.y += r.speed;
+        if (r.y > stageY) {
+          r.y = 40;
+          r.x = W * 0.48 + Math.random() * (W * 0.50);
+        }
+        if (r.x > W * 0.46) {
+          ctx.beginPath();
+          ctx.moveTo(r.x, r.y);
+          ctx.lineTo(r.x, r.y + r.len);
+          ctx.stroke();
+        }
+      });
+    }
+
+    function renderLoop() {
+      t++;
+      ctx.clearRect(0, 0, W, H);
+
+      if (currentScene === "maple") drawJapaneseMapleScene();
+      else if (currentScene === "emberRunner") drawEmberRunnerScene();
+      else if (currentScene === "stageRain") drawStageRainScene();
+
+      requestAnimationFrame(renderLoop);
+    }
+    renderLoop();
   </script>
 </body>
 </html>
