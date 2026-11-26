@@ -11,7 +11,8 @@
 </head>
 <body>
 
-  <!-- Ambient Falling Cyber Background -->
+  <!-- Cursor-Following Spotlight & Falling Particle Canvas -->
+  <div id="cursor-glow" aria-hidden="true"></div>
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
   <!-- Floating Navbar -->
@@ -156,7 +157,26 @@
   </footer>
 
   <script>
-    // Subtle Falling Cyber-Ember Canvas
+    // 1. Cursor-Following Ambient Spotlight + Per-Card Radial Glow
+    const cursorGlow = document.getElementById("cursor-glow");
+    const cards = document.querySelectorAll(".bento-card");
+
+    document.addEventListener("mousemove", (e) => {
+      cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      cursorGlow.style.opacity = "1";
+
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+
+    document.addEventListener("mouseleave", () => {
+      cursorGlow.style.opacity = "0";
+    });
+
+    // 2. Subtle Falling Cyber-Ember Canvas
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
     let particles = [];
