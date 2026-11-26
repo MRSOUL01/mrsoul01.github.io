@@ -3,58 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ummer Ahmed Shaik | Cloud Tech & InfoSec Portfolio</title>
-  <meta name="description" content="Official portfolio of Ummer Ahmed Shaik (MRSOUL01) — BCA Cloud Technology & Information Security student at Jain University, Bengaluru, developer, and MUN delegate." />
-  <meta name="keywords" content="Ummer Ahmed Shaik, MRSOUL01, Jain University, Cloud Technology, Information Security, C Programming, Portfolio" />
-  <meta name="author" content="Ummer Ahmed Shaik" />
-  <link rel="canonical" href="https://mrsoul01.github.io/" />
-
-  <!-- PASTE YOUR GOOGLE SEARCH CONSOLE VERIFICATION META TAG BELOW THIS LINE -->
-
-  
-
-  <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="Ummer Ahmed Shaik — Portfolio" />
-  <meta property="og:description" content="BCA Cloud Tech & InfoSec undergrad at Jain University, Bengaluru. Projects in C, MediaPipe, and Digital Logic." />
-  <meta property="og:url" content="https://mrsoul01.github.io/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Structured Data (Helps Google connect your name to your profiles) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Ummer Ahmed Shaik",
-    "alternateName": "MRSOUL01",
-    "url": "https://mrsoul01.github.io/",
-    "affiliation": {
-      "@type": "CollegeOrUniversity",
-      "name": "Jain (Deemed-to-be) University"
-    },
-    "sameAs": [
-      "https://github.com/MRSOUL01",
-      "https://www.linkedin.com/"
-    ]
-  }
-  </script>
-
+  <title>Ummer Ahmed Shaik | MRSOUL01</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Top Scroll Progress Line -->
-  <div id="scroll-progress"></div>
 
-  <!-- Falling Background Layers -->
-  <div id="bg-grid-layer"></div>
-  <canvas id="bg-fall-canvas"></canvas>
-  <div class="blob blob-1" data-speed="0.45"></div>
-  <div class="blob blob-2" data-speed="0.65"></div>
-  <div class="blob blob-3" data-speed="0.30"></div>
+  <!-- Ambient Falling Cyber Background -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-  <!-- Floating Glass Navbar -->
+  <!-- Floating Navbar -->
   <nav class="navbar">
     <div class="logo">MRSOUL01<span class="dot">.dev</span></div>
     <ul class="nav-links">
@@ -62,177 +22,145 @@
       <li><a href="#projects">Builds</a></li>
       <li><a href="#experience">Quests</a></li>
       <li><a href="#sidequests">AFK</a></li>
+      <li><a href="poems.html">Poems</a></li>
     </ul>
-    <a href="https://github.com/MRSOUL01" target="_blank" class="btn-glow">GitHub ↗</a>
+    <a href="https://github.com/MRSOUL01" target="_blank" rel="noopener" class="btn-glow">GitHub ↗</a>
   </nav>
 
   <!-- Hero Section -->
   <header class="hero">
     <div class="status-pill">
-      <span class="pulse-dot"></span> Currently compiling in Bengaluru // From Kuwait
+      <span class="pulse"></span> Currently compiling in Bengaluru // From Kuwait
     </div>
-    <h1 class="glitch" data-text="UMMER AHMED SHAIK">UMMER AHMED SHAIK</h1>
+    <h1>UMMER AHMED SHAIK</h1>
     <p class="subtitle">
-      Cloud Tech & InfoSec Undergrad • Circuit Tinkerer • MUN Diplomat • Philosophy Nerd
+      BCA Cloud &amp; Security Undergrad • Competitive Debater • Speedcuber • Builder of digital systems &amp; philosophical rabbit holes.
     </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">Explore Builds</a>
-      <a href="#about" class="btn-secondary">Read the Lore</a>
-    </div>
   </header>
 
-  <!-- Infinite Scrolling Marquee -->
-  <div class="marquee-wrapper">
-    <div class="marquee-track">
-      <span>CLOUD SECURITY ✦ C PROGRAMMING ✦ DIGITAL LOGIC ✦ MEDIAPIPE ✦ LINUX & GIT ✦ MATRIX ALGEBRA ✦ MUN DIPLOMACY ✦ SPEEDCUBING ✦ EUDAIMONIA ✦ </span>
-      <span>CLOUD SECURITY ✦ C PROGRAMMING ✦ DIGITAL LOGIC ✦ MEDIAPIPE ✦ LINUX & GIT ✦ MATRIX ALGEBRA ✦ MUN DIPLOMACY ✦ SPEEDCUBING ✦ EUDAIMONIA ✦ </span>
-    </div>
-  </div>
+  <!-- Bento Grid -->
+  <main class="bento-grid">
 
-  <!-- Bento Grid Section -->
-  <main id="about" class="bento-container">
-    
-    <!-- Card 1: Core Lore -->
-    <section class="bento-card span-2 reveal">
-      <span class="tag">// 01. SYSTEM_INFO</span>
-      <h2>The Lore</h2>
+    <!-- 01. Lore / About -->
+    <section id="about" class="bento-card span-2">
+      <span class="tag">// 01. LORE</span>
+      <h2>Cloud Architecture, Logic &amp; Meaning-Making</h2>
       <p>
-        Pursuing a <strong>BCA in Cloud Technology & Information Security</strong> at Jain (Deemed-to-be) University, Bengaluru. Bridging the gap between low-level hardware logic gates, C programming, and modern cloud infrastructure—while questioning existence through Aristotelian philosophy on the side.
+        Pursuing a Bachelor of Computer Applications specializing in Cloud Technology &amp; Information Security at JAIN (Deemed-to-be) University, Bengaluru, after completing secondary education at Gulf Indian School in Kuwait.
       </p>
-      <div class="stat-row">
-        <div class="stat">
-          <span class="stat-num">KWI → BLR</span>
-          <span class="stat-label">Base Coordinates</span>
-        </div>
+      <p style="margin-top: 12px;">
+        Outside of C programming, linear algebra, and digital logic circuits, I explore Aristotelian <em>Eudaimonia</em>, draft policy resolutions on AI governance, and fine-tune smart cubes.
+      </p>
+      <div class="chip-row">
+        <span class="chip">Cloud &amp; InfoSec</span>
+        <span class="chip">C / Python / JS</span>
+        <span class="chip">Digital Logic</span>
+        <span class="chip">Linear Algebra</span>
+        <span class="chip">Git &amp; Linux</span>
+      </div>
+    </section>
+
+    <!-- 02. Telemetry / Quick Stats -->
+    <section class="bento-card">
+      <span class="tag">// 02. TELEMETRY</span>
+      <div class="stat-block">
         <div class="stat">
           <span class="stat-num">BCA</span>
-          <span class="stat-label">Cloud & InfoSec</span>
+          <span class="stat-label">Cloud &amp; Security</span>
         </div>
         <div class="stat">
-          <span class="stat-num">3x3</span>
-          <span class="stat-label">GAN i4</span>
+          <span class="stat-num">MUN</span>
+          <span class="stat-label">UNGA-DISEC Delegate</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">GAN i4</span>
+          <span class="stat-label">Smart Cube Tuned</span>
         </div>
       </div>
     </section>
 
-    <!-- Card 2: Tech Stack -->
-    <section class="bento-card reveal">
-      <span class="tag">// 02. ARSENAL</span>
-      <h2>Tech & Tools</h2>
-      <div class="chip-grid">
-        <span class="chip">C Language</span>
-        <span class="chip">HTML / CSS / JS</span>
-        <span class="chip">MediaPipe</span>
-        <span class="chip">Digital Logic (MUX/Adders)</span>
-        <span class="chip">Falstad Sim</span>
-        <span class="chip">Git & GitHub</span>
-        <span class="chip">Matrix Algebra</span>
+    <!-- 03. Builds / Projects -->
+    <section id="projects" class="bento-card span-2">
+      <span class="tag">// 03. BUILDS</span>
+      <h2>Selected Repositories &amp; Lab Systems</h2>
+      <div class="project-list">
+        <a href="https://github.com/MRSOUL01/hotel-management" target="_blank" rel="noopener" class="project-item">
+          <div>
+            <h3>hotel-management</h3>
+            <p>End-to-end reservation, room allocation, and billing system engineered for structured data workflows.</p>
+          </div>
+          <span class="arrow">↗</span>
+        </a>
+        <a href="https://github.com/MRSOUL01/GAME" target="_blank" rel="noopener" class="project-item">
+          <div>
+            <h3>GAME // Interactive Sandbox</h3>
+            <p>Browser-based logic &amp; interactive mechanics developed and tested via GitHub Codespaces.</p>
+          </div>
+          <span class="arrow">↗</span>
+        </a>
+        <div class="project-item">
+          <div>
+            <h3>Digital Logic &amp; Combinational Circuits</h3>
+            <p>Simulated 4:1 MUX, 1:4 DEMUX, Full Adders &amp; Subtractors with Boolean algebra verification.</p>
+          </div>
+          <span class="arrow">⌘</span>
+        </div>
       </div>
     </section>
 
-    <!-- Card 3: Builds / Projects -->
-    <section id="projects" class="bento-card span-3 reveal">
-      <span class="tag">// 03. FEATURED_BUILDS</span>
-      <h2>What I've Shipped</h2>
-      <div class="project-grid">
-        <article class="project-item">
-          <div class="project-top">
-            <span class="folder-icon">⚡</span>
-            <span class="project-year">2025</span>
-          </div>
-          <h3>Hand-Gesture Particle Visualizer</h3>
-          <p>Interactive real-time particle physics controlled via webcam hand tracking using MediaPipe, HTML5 Canvas, and JavaScript.</p>
-          <span class="tech-tag">MediaPipe • JS • Canvas</span>
-        </article>
-
-        <article class="project-item">
-          <div class="project-top">
-            <span class="folder-icon">🏨</span>
-            <span class="project-year">Open Source</span>
-          </div>
-          <h3>Hotel Management System</h3>
-          <p>Full-featured room booking, billing, and record management system built from scratch and maintained on GitHub.</p>
-          <span class="tech-tag">MRSOUL01/hotel-management</span>
-        </article>
-
-        <article class="project-item">
-          <div class="project-top">
-            <span class="folder-icon">🔌</span>
-            <span class="project-year">Hardware Lab</span>
-          </div>
-          <h3>Combinational Logic Circuits</h3>
-          <p>Designed and verified Half/Full Adders, Subtractors, 4:1 MUX, and 1:4 DEMUX circuits via Boolean algebra & Falstad simulation.</p>
-          <span class="tech-tag">Digital Logic • SOP • Falstad</span>
-        </article>
-      </div>
-    </section>
-
-    <!-- Card 4: Experience & Leadership -->
-    <section id="experience" class="bento-card span-2 reveal">
-      <span class="tag">// 04. MAIN_QUESTS</span>
-      <h2>Experience & Leadership</h2>
-      <ul class="timeline">
+    <!-- 04. Quests / Experience & MUN -->
+    <section id="experience" class="bento-card">
+      <span class="tag">// 04. QUESTS</span>
+      <h2>Leadership &amp; Arena</h2>
+      <ul class="quest-list">
         <li>
-          <span class="time-badge">Tech</span>
-          <div>
-            <strong>Tech Support Intern — GAO Tek Inc.</strong>
-            <p>Virtual engineering support role assigned to Skylar Squad B.</p>
-          </div>
+          <strong>PoliNexus Debate &amp; Politics Club</strong>
+          <span>Cultural Head Associate Campaign • Jain University</span>
         </li>
         <li>
-          <span class="time-badge">MUN</span>
-          <div>
-            <strong>UNGA-DISEC Delegate (Indonesia)</strong>
-            <p>Debated global disarmament and international security policy in Model UN.</p>
-          </div>
+          <strong>UNGA-DISEC Delegate (Indonesia)</strong>
+          <span>Regulating Military AI &amp; Lethal Autonomous Weapons</span>
         </li>
         <li>
-          <span class="time-badge">Lead</span>
-          <div>
-            <strong>Caretaker</strong>
-            <p>Handling few idiots name Neel, Salman, Prajjval</p>
-          </div>
+          <strong>Tech Support Intern • GAO Tek Inc.</strong>
+          <span>Virtual Operations &amp; Daily Squad Reporting</span>
         </li>
       </ul>
     </section>
 
-    <!-- Card 5: AFK / Off-Screen -->
-    <section id="sidequests" class="bento-card reveal">
+    <!-- 05. AFK / Sidequests -->
+    <section id="sidequests" class="bento-card span-3">
       <span class="tag">// 05. AFK_MODE</span>
-      <h2>Side Quests</h2>
-      <ul class="afk-list">
-        <li>🧊 Speedcubing on a <strong>GAN i4</strong> smart cube</li>
-        <li>🏛️ Deep-diving into <strong>Aristotelian Eudaimonia</strong> & existentialism</li>
-        <li>🏸 Court sessions: <strong>Badminton & Basketball</strong></li>
-        <li>🧮 Grinding <strong>LeetCode</strong> & matrix transformations</li>
-      </ul>
+      <h2>Offline Protocols</h2>
+      <div class="afk-grid">
+        <div class="afk-item">
+          <strong>Speedcubing</strong>
+          <span>Customizing magnet tension &amp; axis distance on a GAN i Carry 4.</span>
+        </div>
+        <div class="afk-item">
+          <strong>Court &amp; Rally</strong>
+          <span>Badminton footwork drills and pickup basketball runs.</span>
+        </div>
+        <div class="afk-item">
+          <strong>Poetry &amp; Philosophy</strong>
+          <span>Writing original verse and exploring stillness &amp; human purpose.</span>
+        </div>
+      </div>
     </section>
 
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>Crafted by <strong>Ummer Ahmed Shaik</strong> • Pursuing <em>Eudaimonia</em> in code & life.</p>
-    <p>prajjval please stop touching me</p>
-    <div class="footer-links">
-      <a href="https://github.com/MRSOUL01" target="_blank">GitHub</a>
-      <span>•</span>
-      <a href="https://leetcode.com" target="_blank">LeetCode</a>
-    </div>
+    <p>Engineered by <strong>Ummer Ahmed Shaik</strong> • Built with HTML, CSS &amp; Vanilla JS</p>
   </footer>
 
-  <!-- Falling Background & Scroll Interaction Engine -->
   <script>
-    const gridLayer = document.getElementById("bg-grid-layer");
-    const blobs = document.querySelectorAll(".blob");
-    const progressBar = document.getElementById("scroll-progress");
-    const canvas = document.getElementById("bg-fall-canvas");
+    // Subtle Falling Cyber-Ember Canvas
+    const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
+    let particles = [];
 
-    let lastScrollY = window.scrollY;
-    let scrollVelocity = 0;
-
-    // Resize falling particle canvas
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -240,90 +168,32 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    // Create falling cyber particles
-    const colors = ["rgba(190, 242, 100, 0.45)", "rgba(168, 85, 247, 0.45)", "rgba(34, 211, 238, 0.45)"];
-    const particles = Array.from({ length: 55 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 2.4 + 0.8,
-      baseSpeed: Math.random() * 0.45 + 0.15,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      drift: (Math.random() - 0.5) * 0.25
-    }));
-
-    // Handle downward falling background on scroll
-    window.addEventListener("scroll", () => {
-      const currentScroll = window.scrollY;
-      const delta = currentScroll - lastScrollY;
-      scrollVelocity = Math.min(Math.max(delta * 0.35, -12), 18);
-      lastScrollY = currentScroll;
-
-      // 1. Shift dot-matrix grid downward as you scroll
-      gridLayer.style.backgroundPosition = `0px ${currentScroll * 0.4}px`;
-
-      // 2. Make ambient blobs fall downward at staggered depths
-      blobs.forEach((blob) => {
-        const speed = parseFloat(blob.dataset.speed);
-        blob.style.transform = `translate3d(0, ${currentScroll * speed}px, 0)`;
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.8 + 0.6,
+        vy: Math.random() * 0.45 + 0.15,
+        color: i % 3 === 0 ? "rgba(190, 242, 100, 0.35)" : i % 2 === 0 ? "rgba(34, 211, 238, 0.28)" : "rgba(168, 85, 247, 0.3)"
       });
+    }
 
-      // 3. Update top scroll progress bar
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = docHeight > 0 ? (currentScroll / docHeight) * 100 : 0;
-      progressBar.style.width = `${scrollPercent}%`;
-    }, { passive: true });
-
-    // Animate falling particles (accelerates downward when scrolling)
-    function animateFall() {
+    function animateBg() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Smoothly decay scroll momentum back to gentle idle fall
-      scrollVelocity *= 0.92;
-
       particles.forEach((p) => {
-        // Particles fall downward faster as you scroll down
-        const fallSpeed = p.baseSpeed + Math.max(scrollVelocity, 0) * (p.size * 0.45);
-        p.y += fallSpeed;
-        p.x += p.drift;
-
-        // Wrap particles from bottom back to top so the fall never runs out
-        if (p.y > canvas.height + 10) {
-          p.y = -10;
+        p.y += p.vy;
+        if (p.y > canvas.height) {
+          p.y = -5;
           p.x = Math.random() * canvas.width;
-        } else if (p.y < -10) {
-          p.y = canvas.height + 10;
         }
-
-        // Draw subtle motion streak when falling fast
         ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        const streakHeight = p.size + Math.max(scrollVelocity, 0) * 1.4;
-        ctx.roundRect(p.x, p.y, p.size, streakHeight, 2);
         ctx.fill();
       });
-
-      requestAnimationFrame(animateFall);
+      requestAnimationFrame(animateBg);
     }
-    animateFall();
-
-    // Card mouse-spotlight & scroll reveal
-    document.querySelectorAll(".bento-card").forEach((card) => {
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-      });
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    animateBg();
   </script>
 </body>
 </html>
