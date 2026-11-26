@@ -31,7 +31,8 @@
       "name": "Jain (Deemed-to-be) University"
     },
     "sameAs": [
-      "https://github.com/MRSOUL01"
+      "https://github.com/MRSOUL01",
+      "https://www.linkedin.com/"
     ]
   }
   </script>
@@ -42,9 +43,15 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Ambient Background Glow -->
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
+  <!-- Top Scroll Progress Line -->
+  <div id="scroll-progress"></div>
+
+  <!-- Falling Background Layers -->
+  <div id="bg-grid-layer"></div>
+  <canvas id="bg-fall-canvas"></canvas>
+  <div class="blob blob-1" data-speed="0.45"></div>
+  <div class="blob blob-2" data-speed="0.65"></div>
+  <div class="blob blob-3" data-speed="0.30"></div>
 
   <!-- Floating Glass Navbar -->
   <nav class="navbar">
@@ -85,7 +92,7 @@
   <main id="about" class="bento-container">
     
     <!-- Card 1: Core Lore -->
-    <section class="bento-card span-2">
+    <section class="bento-card span-2 reveal">
       <span class="tag">// 01. SYSTEM_INFO</span>
       <h2>The Lore</h2>
       <p>
@@ -108,7 +115,7 @@
     </section>
 
     <!-- Card 2: Tech Stack -->
-    <section class="bento-card">
+    <section class="bento-card reveal">
       <span class="tag">// 02. ARSENAL</span>
       <h2>Tech & Tools</h2>
       <div class="chip-grid">
@@ -123,7 +130,7 @@
     </section>
 
     <!-- Card 3: Builds / Projects -->
-    <section id="projects" class="bento-card span-3">
+    <section id="projects" class="bento-card span-3 reveal">
       <span class="tag">// 03. FEATURED_BUILDS</span>
       <h2>What I've Shipped</h2>
       <div class="project-grid">
@@ -160,7 +167,7 @@
     </section>
 
     <!-- Card 4: Experience & Leadership -->
-    <section id="experience" class="bento-card span-2">
+    <section id="experience" class="bento-card span-2 reveal">
       <span class="tag">// 04. MAIN_QUESTS</span>
       <h2>Experience & Leadership</h2>
       <ul class="timeline">
@@ -189,7 +196,7 @@
     </section>
 
     <!-- Card 5: AFK / Off-Screen -->
-    <section id="sidequests" class="bento-card">
+    <section id="sidequests" class="bento-card reveal">
       <span class="tag">// 05. AFK_MODE</span>
       <h2>Side Quests</h2>
       <ul class="afk-list">
@@ -212,5 +219,110 @@
       <a href="https://leetcode.com" target="_blank">LeetCode</a>
     </div>
   </footer>
+
+  <!-- Falling Background & Scroll Interaction Engine -->
+  <script>
+    const gridLayer = document.getElementById("bg-grid-layer");
+    const blobs = document.querySelectorAll(".blob");
+    const progressBar = document.getElementById("scroll-progress");
+    const canvas = document.getElementById("bg-fall-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
+
+    // Resize falling particle canvas
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // Create falling cyber particles
+    const colors = ["rgba(190, 242, 100, 0.45)", "rgba(168, 85, 247, 0.45)", "rgba(34, 211, 238, 0.45)"];
+    const particles = Array.from({ length: 55 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2.4 + 0.8,
+      baseSpeed: Math.random() * 0.45 + 0.15,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      drift: (Math.random() - 0.5) * 0.25
+    }));
+
+    // Handle downward falling background on scroll
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.scrollY;
+      const delta = currentScroll - lastScrollY;
+      scrollVelocity = Math.min(Math.max(delta * 0.35, -12), 18);
+      lastScrollY = currentScroll;
+
+      // 1. Shift dot-matrix grid downward as you scroll
+      gridLayer.style.backgroundPosition = `0px ${currentScroll * 0.4}px`;
+
+      // 2. Make ambient blobs fall downward at staggered depths
+      blobs.forEach((blob) => {
+        const speed = parseFloat(blob.dataset.speed);
+        blob.style.transform = `translate3d(0, ${currentScroll * speed}px, 0)`;
+      });
+
+      // 3. Update top scroll progress bar
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (currentScroll / docHeight) * 100 : 0;
+      progressBar.style.width = `${scrollPercent}%`;
+    }, { passive: true });
+
+    // Animate falling particles (accelerates downward when scrolling)
+    function animateFall() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Smoothly decay scroll momentum back to gentle idle fall
+      scrollVelocity *= 0.92;
+
+      particles.forEach((p) => {
+        // Particles fall downward faster as you scroll down
+        const fallSpeed = p.baseSpeed + Math.max(scrollVelocity, 0) * (p.size * 0.45);
+        p.y += fallSpeed;
+        p.x += p.drift;
+
+        // Wrap particles from bottom back to top so the fall never runs out
+        if (p.y > canvas.height + 10) {
+          p.y = -10;
+          p.x = Math.random() * canvas.width;
+        } else if (p.y < -10) {
+          p.y = canvas.height + 10;
+        }
+
+        // Draw subtle motion streak when falling fast
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        const streakHeight = p.size + Math.max(scrollVelocity, 0) * 1.4;
+        ctx.roundRect(p.x, p.y, p.size, streakHeight, 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateFall);
+    }
+    animateFall();
+
+    // Card mouse-spotlight & scroll reveal
+    document.querySelectorAll(".bento-card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>
