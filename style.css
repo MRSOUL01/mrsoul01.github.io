@@ -1,3 +1,4 @@
+
 :root {
   --bg-dark: #09090b;
   --card-bg: rgba(24, 24, 27, 0.65);
@@ -12,7 +13,7 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
-* {
+- {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -27,28 +28,6 @@ body {
   line-height: 1.6;
   background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 28px 28px;
-}
-
-/* Cursor-Following Ambient Spotlight */
-#cursor-glow {
-  position: fixed;
-  top: -260px;
-  left: -260px;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(190, 242, 100, 0.13) 0%,
-    rgba(168, 85, 247, 0.09) 40%,
-    rgba(34, 211, 238, 0.04) 65%,
-    transparent 75%
-  );
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  will-change: transform;
 }
 
 /* Ambient Gradient Blobs */
@@ -275,34 +254,12 @@ body {
 }
 
 .bento-card {
-  position: relative;
-  overflow: hidden;
   background: var(--card-bg);
   backdrop-filter: blur(14px);
   border: 1px solid var(--card-border);
   border-radius: 24px;
   padding: 28px;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Inner Card Surface Glow Following Cursor */
-.bento-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    420px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
-    rgba(190, 242, 100, 0.09),
-    rgba(168, 85, 247, 0.06) 45%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.bento-card:hover::before {
-  opacity: 1;
 }
 
 .bento-card:hover {
